@@ -1,0 +1,119 @@
+{
+  :profiles
+  {
+    :Default
+    {
+      :default            true
+      :alone              20              ;; Hold for ... ms register single tap.
+      :delay              30              ;; Time after which key pressed is delayed.
+      :held               100             ;; TODO: Not sure what it's for.
+      :sim                50              ;; Keys need to be pressed within this threshold
+                                          ;; to be considered simultaneous.
+      :simlayer-threshold 220
+    }
+  }
+  :applications
+  {
+    ;; To obtain the app ID: `grep -A1 "CFBundleIdentifier" /Applications/The.app/Contents/Info.plist`
+    :IntelliJ                            ["com.jetbrains.intellij"]
+    :Safari                              ["com.apple.Safari"]
+    :Toolbox                             ["com.jetbrains.toolbox"]
+    :WebStorm                            ["com.jetbrains.webstorm"]
+  }
+  :froms
+  {
+    :line-delete                         { :modi :left_command :key :delete_or_backspace }
+    :line-duplicate                      { :modi :left_command :key :d }
+    :selection-extend                    { :modi :left_option :key :up_arrow }
+    :selection-shrink                    { :modi :left_option :key :down_arrow }
+    :show-recent                         { :modi :left_command :key :e }
+    :sidebar-primary-toggle              { :modi :left_command :key :1 }
+    :sidebar-secondary-toggle            { :modi :left_command :key :2 }
+    :switch-account                      { :modi :left_command :key :caps_lock }
+    :zoom-in                             { :modi :left_command :key :equal_sign }
+    :zoom-out                            { :modi :left_command :key :hyphen }
+  }
+  :layers
+  {
+    :tab-mode                            { :key :tab }
+    :caps-mode                           { :key :caps_lock }
+  }
+  :simlayers
+  {
+    :emoji-mode                          { :key :e }
+    :open-mode                           { :key :o }
+    :script-mode                         { :key :s }
+  }
+  :templates
+  {
+    :open-app                            "osascript -e 'tell application \"%s\" to activate'"
+    :type                                "$HOME/.dotfiles/bin/sdot mac type \"%s\""
+    :paste                               "$HOME/.dotfiles/bin/sdot mac paste_text \"%s\""
+    :paste-and-return                    "$HOME/.dotfiles/bin/sdot mac paste_text \"%s\" --returning"
+    :open-in-chrome                      "$HOME/.dotfiles/bin/sdot mac open_chrome_url \"%s\""
+    :wait_seconds                        "osascript -e 'delay %s'"
+  }
+  :main
+  [
+    ;; ------------ Web Browsers ------------
+    { :des "[CTO+3] [launch] Safari"              :rules [[:!CTO1 [:open-app "Safari"]]] }
+    ;; ------------------------
+
+    ;; ------------ Development tools ------------
+    { :des "[CTO+t] [launch] JetBrains Toolbox"   :rules [[:!CTOt [:open-app "Toolbox"]]] }
+    { :des "[CTO+1] [launch] iTerm2"              :rules [[:!CTOspacebar "open -a 'iTerm.app'"]] }
+      ;; ------------ IDE's ------------
+      { :des "[CTO+1] [launch] JetBrains WebStorm"  :rules [[:!CTOi [:open-app "IntelliJ"]]] }
+      ;; ------------------------
+    ;; ------------------------
+
+    ;; ------------ Modes ------------
+    { :des "Essmoji mode"                   :rules [:emoji-mode
+                                                   [:d [:paste "👎"]]
+                                                   [:g [:paste "😬"]]
+                                                   [:l [:paste "😂"]]
+                                                   [:p [:paste "➕"]]
+                                                   [:s [:paste "👍"]]
+                                                   [:v [:paste "✅"]]] }
+    { :des "Open apps mode"               :rules [:open-mode
+                                                   [:1 [:open-app "Safari"]]
+                                                   [:t [:open-app "iTerm"]]
+                                                   [:j [:open-app "JetBrains Toolbox"]]
+                                                   [:i [:open-app "IntelliJ"]]] }
+    { :des "Open tabs mode"               :rules [:caps-mode
+                                                   ;; [:a [:open-in-chrome "amazon.es"]
+                                                   ] }
+    { :des   "Script mode"                :rules [:script-mode
+                                                   ;; Generate uuid
+                                                   [:u "$HOME/.dotfiles/bin/sdot utils uuid_code"]] }
+    ;; ------------------------
+
+    ;; ------------ Utils ------------
+    { :des "[util] Disable Caps Locks"    :rules [[:caps_lock ""]] }
+    { :des "[util] Extend selection"      :rules [[:selection-extend [:!Oleft_arrow :!OSright_arrow] [:!IntelliJ :!Notion]]] }
+    { :des "[util] Delete line"           :rules [[:line-delete [:!Cright_arrow :!Cdelete_or_backspace :delete_or_backspace] [:!IntelliJ :!Notion :!Finder :!Contexts]]] }
+    ;; ------------------------
+  ]
+  ;; ------------ Cheatsheet ------------
+  ;; !  stand for mandatory
+  ;; #  stand for optional
+  ;; !! stand for mandatory command + control + optional + shift (hyper)
+  ;; ## stand for optional any
+  ;; C T O S for left command control option shift
+  ;; Q W E R for right command control option shift
+  ;; F for fn
+  ;; need to prefix C T O S F Q W E R with ! or #
+  :cheatsheet
+  {
+  :!Ca        "command a"
+  :!Ta        "control a"
+  :!Oa        "option a"
+  :!Sa        "shift a"
+  :#Sa        "shift a"
+  :!CTOa      "command control option a"
+  :!Cspacebar "command space"
+  :!Fa        "fn a"
+  :##a        "keycode a optional any"
+  :!!a        "mandatory hyper (control command option shift) a "
+  }
+}

@@ -1,0 +1,27 @@
+- clean: ['~']
+
+- defaults:
+    link:
+      create: true
+      force: true
+
+- create:
+      - ~/.hushlogin
+
+- link:
+    ~/.dotly: os/mac/.dotly
+    ~/.config/karabiner.edn: os/mac/karabiner-goku/karabiner.edn
+    ~/.config/karabiner: os/mac/karabiner-elements
+    ~/Library/Application Support/Code/User/keybindings.json: editors/code/keybindings.json
+    ~/Library/Application Support/Code/User/settings.json: editors/code/settings.json
+    ~/Library/Application Support/Code/User/snippets: editors/code/snippets
+    ~/Library/Preferences/com.knollsoft.Hookshot.plist: os/mac/rectangle-pro/com.knollsoft.Hookshot.plist
+    ~/Library/Preferences/com.contextsformac.Contexts.plist: os/mac/contexts/com.contextsformac.Contexts.plist
+    ~/Library/Saved Application State/com.raycast.macos.savedState/data.data: os/mac/raycast/settings/data.data
+    ~/Library/Saved Application State/com.raycast.macos.savedState/windows.plist: os/mac/raycast/settings/windows.plist
+    ~/bin/bash: /usr/local/bin/bash
+    ~/bin/date: /usr/local/bin/gdate
+    ~/bin/find: /usr/local/opt/findutils/bin/gfind
+    ~/bin/make: /usr/local/opt/make/libexec/gnubin/make
+    ~/bin/sed: /usr/local/opt/gnu-sed/libexec/gnubin/sed
+    ~/bin/touch: /usr/local/bin/gtouch
